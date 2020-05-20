@@ -52,3 +52,18 @@ class InfiniteScrollingSpider(scrapy.Spider):
             callback=self.parse_page,
             meta={'page': next_page},
         )
+    
+# --- run without project and save in `output.csv` ---
+
+from scrapy.crawler import CrawlerProcess
+
+c = CrawlerProcess({
+    'USER_AGENT': 'Mozilla/5.0',
+
+    # save in file CSV, JSON or XML
+    'FEED_FORMAT': 'csv',     # csv, json, xml
+    'FEED_URI': 'output.csv', #
+})
+
+c.crawl(InfiniteScrollingSpider)
+c.start()
